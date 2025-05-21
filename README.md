@@ -1,4 +1,4 @@
-# website
+
 # Dog Tales Kennel Website
 
 ## Overview
