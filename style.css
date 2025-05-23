@@ -261,6 +261,9 @@ body {
     position: relative;
     background: var(--dark-text);
     display: flex;
+
+
+
 }
 
 .media-item {
