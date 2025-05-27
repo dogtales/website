@@ -4,6 +4,7 @@
 ## Overview
 
 This website is designed for Dog Tales Kennel, a business in Kenya that provides expert dog training, breeding, and care services. The site is built with HTML, CSS, and JavaScript. It features a responsive design, ensuring optimal viewing across various devices.
+[Github pages](https://dogtales.github.io/website/)
 
 ## File Structure
 
