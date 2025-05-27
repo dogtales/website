@@ -20,20 +20,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 const serviceCards = document.querySelectorAll('.service-card');
 serviceCards.forEach(card => {
-    const filmStrip = card.querySelector('.film-strip');
-    const videoContainer = card.querySelector('.video-container');
-    card.addEventListener('mouseenter', () => {
-        filmStrip.style.display = 'flex';
-        videoContainer.style.display = 'none';
-    });
-    card.addEventListener('mouseleave', () => {
-        filmStrip.style.display = 'none';
-        videoContainer.style.display = 'block';
-    });
-    card.addEventListener('click', () => {
-        const video = videoContainer.querySelector('iframe');
-        video.src += "?autoplay=1";
-    });
+  let currentIndex = 0;
+
+function changeImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
 });
 
 const menuButton = document.querySelector('.menu-button');
