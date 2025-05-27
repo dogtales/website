@@ -254,24 +254,31 @@ body {
 }
 
 .film-strip {
-    height: 180px;
+      height: 180px;
     margin: -1.5rem -1.5rem 2rem -1.5rem;
     border-radius: 15px 15px 0 0;
-    overflow: hidden;
+    overflow: hidden; /* Ensure overflow is hidden */
     position: relative;
-    background: var(--dark-text);
     display: flex;
 
 
 
 }
+@keyframes pan-film-strip {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
 
 .media-item {
-    flex: 0 0 auto;
-    width: 250px;
+    flex: 0 0 auto; /* Prevent flex items from shrinking */
+    width: 250px; /* Set a fixed width for each image */
     height: 180px;
     position: relative;
-    overflow: hidden;
+    animation: pan-film-strip 12s linear infinite; /* Apply the animation */
 }
 
 .media-item img {
@@ -492,4 +499,42 @@ img {
 
 .youtube-button:hover .youtube-tooltip {
     display: block;
+}
+
+.film-strip-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.film-strip-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s;
+    animation: pan-film-strip 12s linear infinite;
+    animation-play-state: paused;
+}
+
+.film-strip-image-container img.active {
+    opacity: 1;
+    z-index: 1;
+    animation-play-state: running;
+}
+
+@keyframes pan-film-strip {
+    0% {
+        transform: scale(1.1) translateX(0);
+    }
+    50% {
+        transform: scale(1.1) translateX(-20px);
+    }
+    100% {
+        transform: scale(1.1) translateX(0);
+    }
 }
