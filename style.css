@@ -254,12 +254,13 @@ body {
 }
 
 .film-strip {
-      height: 180px;
+    height: 180px;
     margin: -1.5rem -1.5rem 2rem -1.5rem;
     border-radius: 15px 15px 0 0;
     overflow: hidden; /* Ensure overflow is hidden */
     position: relative;
     display: flex;
+    transition: transform 0.5s ease; /* Smooth transition for panning */
 
 
 
