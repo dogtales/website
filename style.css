@@ -369,7 +369,7 @@ footer {
 
 .whatsapp-button {
     position: fixed;
-    bottom: 90px;
+    bottom: 20px;
     right: 20px;
     background-color: #25D366;
     color: white;
@@ -387,100 +387,123 @@ footer {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.youtube-button {
+    position: fixed;
+    bottom: 20px;
+    right: 90px; /* To the left of WhatsApp button */
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Mobile screens: buttons vertically stacked */
+@media (max-width: 768px) {
+    .whatsapp-button {
+        position: fixed;
+        bottom: 90px; /* WhatsApp above YouTube */
+        right: 20px;
+    }
+    .youtube-button {
+        position: fixed;
+        bottom: 20px; /* YouTube at the bottom */
+        right: 20px;
+    }
+}
+
 img {
     width: 100%;
     display: block;
 }
 
-@media (max-width: 768px) {
-    .service-card {
-        flex-direction: column;
-        align-items: center;
-    }
+.youtube-button:hover {
+    background-color: #C8102E;
+    transform: translateY(-10px);
+}
+.youtube-tooltip {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+    z-index: 1001;
+    background-color: #FF0000;
+}
+.youtube-button:hover .youtube-tooltip {
+    display: block;
+}
 
-    .hero h1 {
-        font-size: 3rem; /* Smaller font size for mobile */
-    }
+/* --- Start of new code for horizontal alignment on all screens --- */
+.whatsapp-button, .youtube-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366; /* WhatsApp color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.whatsapp-button:hover {
+    background-color: #128C7E;
+    transform: translateY(-10px);
+}
+.youtube-button {
+    right: 90px; /* Adjusted position for YouTube button */
+    background-color: #FF0000; /* YouTube color */
+}
+.youtube-button:hover {
+    background-color: #C8102E;
+    transform: translateY(-10px);
+}
+.whatsapp-tooltip, .youtube-tooltip {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+    z-index: 1001;
+}
+.whatsapp-tooltip {
+    background-color: #25D366;
+}
+.youtube-tooltip {
+    background-color: #FF0000;
+}
+.whatsapp-button:hover .whatsapp-tooltip,
+.youtube-button:hover .youtube-tooltip {
+    display: block;
+}
+/* Image styling for buttons */
+.button-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+/* --- End of new code --- */
 
-    .hero h2 {
-        font-size: 1.5rem; /* Smaller font size for mobile */
-    }
-
-    .services-grid {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .service-card {
-        min-height: auto;
-    }
-
-    .nav-links {
-        flex-direction: column; /* Column layout for mobile */
-        padding: 1rem;
-    }
-
-    .nav-links a {
-        width: auto; /* Full width for mobile */
-        font-size: 1rem; /* Adjusted font size for mobile */
-    }
-
-        .whatsapp-button, .youtube-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366; /* WhatsApp color */
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .whatsapp-button:hover {
-            background-color: #128C7E;
-            transform: translateY(-10px);
-        }
-        .youtube-button {
-            right: 90px; /* Adjusted position for YouTube button */
-            background-color: #FF0000; /* YouTube color */
-        }
-        .youtube-button:hover {
-            background-color: #C8102E;
-            transform: translateY(-10px);
-        }
-        .whatsapp-tooltip, .youtube-tooltip {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            display: none;
-            z-index: 1001;
-        }
-        .whatsapp-tooltip {
-            background-color: #25D366;
-        }
-        .youtube-tooltip {
-            background-color: #FF0000;
-        }
-        .whatsapp-button:hover .whatsapp-tooltip,
-        .youtube-button:hover .youtube-tooltip {
-            display: block;
-        }
-        /* Image styling for buttons */
-        .button-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
 .film-strip-image-container {
     width: 100%;
     height: 200px;
