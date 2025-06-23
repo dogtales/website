@@ -94,6 +94,7 @@
                         <li>Behavior training for noisy streets and markets</li>
                     </ul>
                     <p class="service-quote">"We don't just train dogs—we build trust!"</p>
+                    <button class="service-book-btn" data-service="Dog Training">Book Training</button>
                 </div>
             </div>
             <div class="service-card">
@@ -134,6 +135,7 @@
                         <li>Raising pups ready for homes, farms, or security work</li>
                     </ul>
                     <p class="service-quote">"A good breeder builds a better Kenya—one puppy at a time!"</p>
+                    <button class="service-book-btn" data-service="Dog Breeding">Book Breeding</button>
                 </div>
             </div>
             <div class="service-card">
@@ -175,6 +177,7 @@
                         <li>New owner support programs</li>
                     </ul>
                     <p class="service-quote">"In Kenya, dogs are family—we treat yours like our own!"</p>
+                    <button class="service-book-btn" data-service="Dog Handling">Book Handling</button>
                 </div>
             </div>
         </div>
@@ -214,7 +217,86 @@
     </a>
 
     </a>
-    <script src="[https://kit.fontawesome.com/a076d05399.js](https://kit.fontawesome.com/a076d05399.js)" crossorigin="anonymous"></script>
+    <!-- Booking Modal (copied/adapted from WhatsappForm V2.html) -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Your Dog Service</h3>
+                <button id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userInfoForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-input" placeholder="+2547XXXXXXXX" required>
+                    </div>
+                    <div class="tab-buttons">
+                        <button type="button" class="tab-btn active-tab" data-tab="quick-book">Quick Book</button>
+                        <button type="button" class="tab-btn" data-tab="custom-message">Custom Message</button>
+                    </div>
+                    <div id="quick-book" class="tab-content active">
+                        <div class="form-group">
+                            <label class="form-label">Service Type</label>
+                            <div class="grid-cols-2">
+                                <div class="service-option" data-service="Dog Training">
+                                    <i class="fas fa-dog"></i>
+                                    <div>Dog Training</div>
+                                </div>
+                                <div class="service-option" data-service="Dog Breeding">
+                                    <i class="fas fa-heart"></i>
+                                    <div>Dog Breeding</div>
+                                </div>
+                                <div class="service-option" data-service="Dog Handling">
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                    <div>Dog Handling</div>
+                                </div>
+                                <div class="service-option" data-service="Other Inquiry">
+                                    <i class="fas fa-question-circle"></i>
+                                    <div>Other Inquiry</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="form-label">Preferred Date (Optional)</label>
+                            <input type="date" id="date" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="time" class="form-label">Preferred Time (Optional)</label>
+                            <select id="time" class="form-select">
+                                <option value="">Select Time</option>
+                                <option value="Morning (9am-12pm)">Morning (9am-12pm)</option>
+                                <option value="Afternoon (12pm-3pm)">Afternoon (12pm-3pm)</option>
+                                <option value="Evening (3pm-6pm)">Evening (3pm-6pm)</option>
+                                <option value="Night (6pm-9pm)">Night (6pm-9pm)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes" class="form-label">Additional Notes (Optional)</label>
+                            <textarea id="notes" class="form-textarea" rows="2" placeholder="Any specific details or questions..."></textarea>
+                        </div>
+                    </div>
+                    <div id="custom-message" class="tab-content">
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" class="form-textarea" rows="4" placeholder="Type your detailed inquiry or booking message here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="sendBookingBtn" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
