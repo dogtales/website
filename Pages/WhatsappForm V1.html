@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dog Tales Kennel - Expert dog training, breeding, and care services in Kenya">
+    <title>Dog Tales Kennel | Where Dogs Become Family</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXQY1CPD94"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BXQY1CPD94');
+    </script>
+    <style>
+        :root {
+            --primary-color: #f7ecdb;
+            --secondary-color: #8D6E63;
+            --accent-color: #FFAB91;
+            --light-bg: #FFFEF0;
+            --dark-text: #3E2723;
+            --nav-icon-border: #5D4037;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+        }
+
+        .header {
+            background: var(--primary-color);
+            padding: 0.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: top 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none; /* Remove underline from logo link */
+        }
+
+        .logo-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--dark-text);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-img {
+            width: 100px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(15deg);
+        }
+
+        .nav-links {
+            display: none; /* Hide by default */
+            position: absolute;
+            top: 60px; /* Position below the header */
+            right: 0;
+            background: rgb(250, 229, 211);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            gap: 0;
+            list-style: none;
+            padding: 1rem;
+            transition: max-height 0.3s ease;
+            overflow: hidden;
+        }
+
+        .nav-links a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: grey;
+            font-weight: 500;
+        }
+
+        .nav-links a::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://github.com/kenjin32icon/dogtales/blob/main/Media/Dog%20Tales%20Kennels%20Nav.png?raw=true'); /* Updated path */
+            background-size: cover;
+            border-radius: 50%;
+            border: 2px solid var(--nav-icon-border);
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255 , 0.2);
+        }
+
+        .menu-button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark-text);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-button.active {
+            transform: translateY(-10px);
+        }
+
+        /* .nav-container:hover .nav-links {
+            display: flex;
+        } */ /* This was causing issues, removed for mobile menu functionality */
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .image-container img.active {
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+            margin-bottom: 1rem;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 2);
+            font-weight: 200;
+            max-width: 800px;
+            line-height: 1.3;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .film-strip {
+            height: 180px;
+            margin: -1.5rem -1.5rem 2rem -1.5rem;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes pan-film-strip {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .media-item {
+            flex: 0 0 auto;
+            width: 250px;
+            height: 180px;
+            position: relative;
+            animation: pan-film-strip 12s linear infinite;
+        }
+
+        .media-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-container {
+            display: none;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .card-content {
+            display: block;
+            font-size: 1.5em;
+        }
+
+        .service-quote {
+            margin-top: auto;
+            padding: 1rem;
+            background: rgba(216, 155, 116, 0.1);
+            border-radius: 8px;
+            font-style: italic;
+            position: relative;
+        }
+
+        .service-quote::before {
+            content: '“';
+            position: absolute;
+            left: -5px;
+            top: -15px;
+            font-size: 3rem;
+            color: var(--accent-color);
+            font-family: 'Times New Roman', serif;
+        }
+
+        .why-us {
+            background: var(--light-bg);
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .why-us ul {
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        .why-us li {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .why-us li:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-details {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details div {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: linear-gradient(to right, var(--secondary-color), var(--dark-text));
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .youtube-button {
+            position: fixed;
+            bottom: 20px;
+            right: 90px;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Mobile screens: buttons vertically stacked */
+        @media (max-width: 768px) {
+            .whatsapp-button {
+                position: fixed;
+                bottom: 90px;
+                right: 20px;
+            }
+            .youtube-button {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+            }
+            .nav-links {
+                width: 100%;
+                right: 0;
+                left: 0;
+                top: 70px; /* Adjust based on header height */
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            .nav-links a {
+                width: 100%;
+                padding: 1rem 0;
+                border-radius: 0;
+            }
+            .nav-links a::before {
+                display: none; /* Hide icon in mobile menu */
+            }
+            .nav-links span {
+                display: block; /* Ensure text is visible */
+            }
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        .youtube-button:hover {
+            background-color: #C8102E;
+            transform: translateY(-10px);
+        }
+        .youtube-tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: none;
+            z-index: 1001;
+            background-color: #FF0000;
+        }
+        .youtube-button:hover .youtube-tooltip {
+            display: block;
+        }
+
+        /* --- Start of new code for horizontal alignment on all screens --- */
+        .whatsapp-button, .youtube-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: translateY(-10px);
+        }
+        .youtube-button {
+            right: 90px;
+            background-color: #FF0000;
+        }
+        .youtube-button:hover {
+            background-color: #C8102E;
+            transform: translateY(-10px);
+        }
+        .whatsapp-tooltip, .youtube-tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: none;
+            z-index: 1001;
+        }
+        .whatsapp-tooltip {
+            background-color: #25D366;
+        }
+        .youtube-tooltip {
+            background-color: #FF0000;
+        }
+        .whatsapp-button:hover .whatsapp-tooltip,
+        .youtube-button:hover .youtube-tooltip {
+            display: block;
+        }
+        /* Image styling for buttons */
+        .button-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        /* --- End of new code --- */
+
+        .film-strip-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .film-strip-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s;
+            animation: pan-film-strip 12s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .film-strip-image-container img.active {
+            opacity: 1;
+            z-index: 1;
+            animation-play-state: running;
+        }
+
+        @keyframes pan-film-strip {
+            0% {
+                transform: scale(1.1) translateX(0);
+            }
+            50% {
+                transform: scale(1.1) translateX(-20px);
+            }
+            100% {
+                transform: scale(1.1) translateX(0);
+            }
+        }
+
+        /* Styles for the Booking Modal (from ButtonForm.html) */
+        .modal {
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 28rem; /* max-w-md from tailwind */
+            overflow: hidden;
+        }
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            background: #2563eb; /* bg-blue-600 */
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .modal-footer {
+            background: #f3f4f6; /* bg-gray-100 */
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .service-option {
+            transition: all 0.2s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem; /* p-3 */
+            border: 1px solid #d1d5db; /* border */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+        }
+        .service-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .service-option.selected {
+            border-color: #3b82f6; /* border-blue-500 */
+            background-color: #eff6ff; /* bg-blue-50 */
+        }
+        .service-option i {
+            color: #3b82f6; /* text-blue-500 */
+            margin-bottom: 0.25rem; /* mb-1 */
+            font-size: 1.5rem; /* text-2xl */
+        }
+        .form-group {
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .form-label {
+            display: block;
+            color: #374151; /* text-gray-700 */
+            font-weight: 500; /* font-medium */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.5rem 1rem; /* px-4 py-2 */
+            border: 1px solid #d1d5db; /* border */
+            border-radius: 0.5rem; /* rounded-lg */
+            outline: none;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #3b82f6; /* focus:ring-blue-500 */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 */
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #d1d5db; /* border-b */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .tab-btn {
+            padding: 0.5rem 1rem; /* py-2 px-4 */
+            font-weight: 500; /* font-medium */
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            color: #6b7280; /* text-gray-500 */
+        }
+        .tab-btn.active-tab {
+            color: #2563eb; /* text-blue-600 */
+            border-color: #2563eb; /* border-blue-600 */
+        }
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem; /* gap-3 */
+        }
+        .btn-whatsapp {
+            background: #22c55e; /* bg-green-500 */
+            color: white;
+            font-weight: 700; /* font-bold */
+            padding: 0.5rem 1.5rem; /* py-2 px-6 */
+            border-radius: 0.5rem; /* rounded-lg */
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .btn-whatsapp:hover {
+            background: #16a34a; /* hover:bg-green-600 */
+        }
+        .btn-whatsapp i {
+            margin-right: 0.5rem; /* mr-2 */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Logo.png?raw=true" alt="Dog Tales Logo" class="logo-img fitting-logo">
+                <span class="logo-text">Dog Tales Kennels</span>
+            </a>
+            <button class="menu-button" aria-label="Toggle navigation">☰ <span>menu<span> </button>
+            <ul class="nav-links">
+                <li><a href="#services"><span>Services</span></a></li>
+                <li><a href="#why-us"><span>Why Us</span></a></li>
+                <li><a href="#contact"><span>Contact</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="image-container">
+            <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Hero%20images/1.%20WhatsApp%20Image%202025-04-15%20at%206.33.05%20PM.jpeg?raw=true" class="active" alt="Dog Hero Image 1">
+            <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Hero%20images/2.%20WhatsApp%20Image%202025-04-15%20at%206.33.05%20PM(1).jpeg?raw=true" alt="Dog Hero Image 2">
+            <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Hero%20images/3.%20WhatsApp%20Image%202025-04-15%20at%206.33.03%20PM.jpeg?raw=true" alt="Dog Hero Image 3">
+            <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Hero%20images/4.%20WhatsApp%20Image%202025-04-15%20at%206.33.04%20PM(1).jpeg?raw=true" alt="Dog Hero Image 4">
+            <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Hero%20images/5.%20WhatsApp%20Image%202025-04-15%20at%206.33.04%20PM(2).jpeg?raw=true" alt="Dog Hero Image 5">
+        </div>
+        <div class="hero-content">
+            <h1>Welcome to Dog Tales Kennel</h1>
+            <h2>Your Trusted Partner in Dog Care and Training!</h2>
+        </div>
+    </section>
+    <section class="section">
+        <div class="welcome-section">
+            <h2>Welcome to Dog Tales Kennel!</h2>
+            <p>Calling all Kenyan dog lovers! Whether you're raising dogs in the countryside, training a guardian for your Nairobi home, or just need a helping hand with your furry friend, we're here for you. Discover expert guidance on <strong>dog breeding</strong>, <strong>security training (Dog Tales Security)</strong>, and <strong>professional dog care</strong>—all tailored for Kenya's unique needs.</p>
+        </div>
+    </section>
+    <section id="services" class="section">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Dog Training</h3>
+                <div class="film-strip">
+                   
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-05-07.png?raw=true" alt="Training Image 2">
+                    </div>
+                     <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-04-23%2020-20-06.png?raw=true" alt="Training Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-07-10.png?raw=true" alt="Training Image 3">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-01-47.png?raw=true" alt="Training Image 3">
+                    </div>
+                                    <!-- Duplicate the first image for seamless looping -->
+                <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-05-07.png?raw=true" alt="Training Image 2">
+                    </div>
+                     <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-04-23%2020-20-06.png?raw=true" alt="Training Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-07-10.png?raw=true" alt="Training Image 3">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/1.%20Dog%20Training/Screenshot%20from%202025-05-27%2007-01-47.png?raw=true" alt="Training Image 3">
+                    </div>
+                </div>
+         
+                <div class="card-content">
+                    <h3>Dog Training Services</h3>
+                    <ul>
+                        <li>Home and family protection (urban areas)</li>
+                        <li>Farm and livestock security (rural communities)</li>
+                        <li>Behavior training for noisy streets and markets</li>
+                    </ul>
+                    <p class="service-quote">"We don't just train dogs—we build trust!"</p>
+                    <button class="service-book-btn" data-service="Dog Training">Book Training</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <h3>Dog Breeding</h3>
+                <div class="film-strip">
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/1.%20Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/2.Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 2">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/3.Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 3">
+                    </div>  
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/Screenshot%20from%202025-05-27%2007-15-00.png?raw=true" alt="Breeding Image 3">
+                    </div>
+                     <!-- Duplicate the first image for seamless looping -->
+                                 <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/1.%20Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/2.Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 2">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/3.Dog%20Breeding%20image.jpeg?raw=true" alt="Breeding Image 3">
+                    </div>  
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/2%20Dog%20Breeding/Screenshot%20from%202025-05-27%2007-15-00.png?raw=true" alt="Breeding Image 3">
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <h3>Dog Breeding Services</h3>
+                    <ul>
+                        <li>Choosing the best pairs for strong, healthy puppies</li>
+                        <li>Safe breeding practices for Kenya's climate</li>
+                        <li>Raising pups ready for homes, farms, or security work</li>
+                    </ul>
+                    <p class="service-quote">"A good breeder builds a better Kenya—one puppy at a time!"</p>
+                    <button class="service-book-btn" data-service="Dog Breeding">Book Breeding</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <h3>Dog Handling</h3>
+                <div class="film-strip">
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/4.Dog%20Breeding%20image.jpeg?raw=true" alt="Handling Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/5.%20WhatsApp%20Image%202025-04-15%20at%206.33.04%20PM.jpeg?raw=true" alt="Handling Image 2">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/Screenshot%20from%202025-05-27%2007-16-37.png?raw=true" alt="Handling Image 3">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/WhatsApp%20Image%202025-04-23%20at%2012.28.01%20PM.jpeg?raw=true" alt="Handling Image 3">
+                    </div>
+                                         <!-- Duplicate the first image for seamless looping -->
+                                               <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/4.Dog%20Breeding%20image.jpeg?raw=true" alt="Handling Image 1">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/5.%20WhatsApp%20Image%202025-04-15%20at%206.33.04%20PM.jpeg?raw=true" alt="Handling Image 2">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/Screenshot%20from%202025-05-27%2007-16-37.png?raw=true" alt="Handling Image 3">
+                    </div>
+                    <div class="media-item">
+                        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Media/Services%20Section/3.%20Dog%20Handling/WhatsApp%20Image%202025-04-23%20at%2012.28.01%20PM.jpeg?raw=true" alt="Handling Image 3">
+                    </div>
+
+                </div>
+            
+                <div class="card-content">
+                    <h3>Dog Handling Services</h3>
+                    <ul>
+                        <li>Event handling for weddings/parties</li>
+                        <li>Daily care and grooming</li>
+                        <li>New owner support programs</li>
+                    </ul>
+                    <p class="service-quote">"In Kenya, dogs are family—we treat yours like our own!"</p>
+                    <button class="service-book-btn" data-service="Dog Handling">Book Handling</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="why-us" class="section why-us">
+        <h2 class="section-title">Why Kenyans Love Us</h2>
+        <ul>
+            <li><strong>Local expertise:</strong> We understand Kenya's needs—from bustling cities to quiet shambas</li>
+            <li><strong>Practical solutions:</strong> Training for security, breeding for health, care for busy lifestyles</li>
+            <li><strong>Community focus:</strong> Helping build safer, happier lives with dogs</li>
+        </ul>
+    </section>
+    <section id="contact" class="section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-details">
+            <p>Join us in making Kenya a better place for dogs and their people! 🐕✨</p>
+            <div>
+                <p>📧 <a href="mailto:dogtaleskennels@gmail.com" target="_blank">dogtaleskennels@gmail.com</a></p>
+                <p>📱 +254 115 411167</p>
+                <p> 📍 Nairobi, Kenya</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>© 2025 Dog Tales Kennel. All rights reserved.</p>
+        <p>Proudly serving Kenyan dog lovers since 2023</p>
+    </footer>
+
+    <a href="https://wa.me/254115411167" class="whatsapp-button" target="_blank">
+        <img src="https://github.com/kenjin32icon/dogtales/blob/main/WhatsApp%20Image%202025-05-09%20at%202.07.45%20PM(1).jpeg?raw=true" alt="WhatsApp" class="button-image">
+        <div class="whatsapp-tooltip">WhatsApp Us</div>
+    </a>
+
+    <a href="https://www.youtube.com/@Mawagidoo" class="youtube-button" target="_blank">
+        <img src="https://github.com/kenjin32icon/dogtales/blob/main/Untitled.png?raw=true" alt="YouTube" class="button-image">
+        <div class="youtube-tooltip">Follow us</div>
+    </a>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="text-xl font-bold">Book Your Dog Service</h3>
+                <button id="closeModal" class="text-white hover:text-blue-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- User Info Form -->
+                <form id="userInfoForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-input" placeholder="+2547XXXXXXXX" required>
+                    </div>
+                    
+                    <!-- Message Type Tabs -->
+                    <div class="tab-buttons">
+                        <button type="button" class="tab-btn active-tab" data-tab="quick-book">Quick Book</button>
+                        <button type="button" class="tab-btn" data-tab="custom-message">Custom Message</button>
+                    </div>
+                    
+                    <!-- Quick Book Tab Content -->
+                    <div id="quick-book" class="tab-content active">
+                        <div class="form-group">
+                            <label class="form-label">Service Type</label>
+                            <div class="grid-cols-2">
+                                <div class="service-option" data-service="Dog Training">
+                                    <i class="fas fa-dog"></i>
+                                    <div>Dog Training</div>
+                                </div>
+                                <div class="service-option" data-service="Dog Breeding">
+                                    <i class="fas fa-heart"></i>
+                                    <div>Dog Breeding</div>
+                                </div>
+                                <div class="service-option" data-service="Dog Handling">
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                    <div>Dog Handling</div>
+                                </div>
+                                <div class="service-option" data-service="Other Inquiry">
+                                    <i class="fas fa-question-circle"></i>
+                                    <div>Other Inquiry</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date" class="form-label">Preferred Date (Optional)</label>
+                            <input type="date" id="date" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time" class="form-label">Preferred Time (Optional)</label>
+                            <select id="time" class="form-select">
+                                <option value="">Select Time</option>
+                                <option value="Morning (9am-12pm)">Morning (9am-12pm)</option>
+                                <option value="Afternoon (12pm-3pm)">Afternoon (12pm-3pm)</option>
+                                <option value="Evening (3pm-6pm)">Evening (3pm-6pm)</option>
+                                <option value="Night (6pm-9pm)">Night (6pm-9pm)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes" class="form-label">Additional Notes (Optional)</label>
+                            <textarea id="notes" class="form-textarea" rows="2" placeholder="Any specific details or questions..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Message Tab Content -->
+                    <div id="custom-message" class="tab-content">
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" class="form-textarea" rows="4" placeholder="Type your detailed inquiry or booking message here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button id="sendBookingBtn" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // HERO IMAGE CAROUSEL
+        const heroImages = document.querySelectorAll('.hero .image-container img');
+        let heroIndex = 0;
+
+        function changeHeroImage() {
+            heroImages[heroIndex].classList.remove('active');
+            heroIndex = (heroIndex + 1) % heroImages.length;
+            heroImages[heroIndex].classList.add('active');
+        }
+        setInterval(changeHeroImage, 4000);
+
+        // FILM STRIP CAROUSELS
+        document.querySelectorAll('.film-strip').forEach(filmStrip => {
+            const imgs = filmStrip.querySelectorAll('img');
+            let idx = 0;
+
+            // Set the width of the film strip based on the number of images
+            filmStrip.style.width = `${imgs.length * 250}px`; // Assuming each image is 250px wide
+
+            function showFilmStripImage() {
+                // Move images based on the index
+                filmStrip.style.transform = `translateX(-${idx * 250}px)`;
+                idx = (idx + 1) % (imgs.length / 2); // Loop back to the first image (considering duplicates)
+            }
+
+            showFilmStripImage();
+            setInterval(showFilmStripImage, 4000);
+        });
+
+        // SMOOTH SCROLLING FOR NAV LINKS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu after clicking a link
+                if (menuVisible) {
+                    menuVisible = false;
+                    navLinks.style.display = 'none';
+                    menuButton.classList.remove('active');
+                }
+            });
+        });
+
+        // MOBILE MENU TOGGLE
+        const menuButton = document.querySelector('.menu-button');
+        const navLinks = document.querySelector('.nav-links');
+        let menuVisible = false;
+
+        menuButton.addEventListener('click', () => {
+            menuVisible = !menuVisible;
+            menuButton.classList.toggle('active', menuVisible);
+            navLinks.style.display = menuVisible ? 'flex' : 'none';
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) { // Adjust breakpoint as needed
+                navLinks.style.display = 'flex'; // Always show nav links on larger screens
+                menuButton.style.display = 'none'; // Hide menu button
+            } else {
+                navLinks.style.display = menuVisible ? 'flex' : 'none'; // Control visibility with menuVisible
+                menuButton.style.display = 'block'; // Show menu button
+            }
+        });
+
+        // Initial check on load
+        window.dispatchEvent(new Event('resize'));
+
+
+        // BOOKING MODAL LOGIC (from ButtonForm.html)
+        const serviceBookBtns = document.querySelectorAll('.service-book-btn');
+        const bookingModal = document.getElementById('bookingModal');
+        const closeModal = document.getElementById('closeModal');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const serviceOptions = document.querySelectorAll('.service-option');
+        const sendBookingBtn = document.getElementById('sendBookingBtn');
+        const userInfoForm = document.getElementById('userInfoForm');
+        
+        // Business WhatsApp number (from index.html contact section)
+        const businessWhatsAppNumber = '254115411167';
+        
+        // Open modal when a service button is clicked
+        serviceBookBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceName = this.getAttribute('data-service');
+                // Select the corresponding service option in the modal
+                serviceOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-service') === serviceName) {
+                        option.classList.add('selected');
+                    }
+                });
+                // Ensure quick-book tab is active
+                tabBtns[0].click();
+                bookingModal.classList.add('active');
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            bookingModal.classList.remove('active');
+        });
+        
+        // Tab switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active tab button
+                tabBtns.forEach(tb => {
+                    tb.classList.remove('active-tab');
+                });
+                this.classList.add('active-tab');
+                
+                // Show corresponding content
+                const tabId = this.getAttribute('data-tab');
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Service selection
+        serviceOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                serviceOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Send booking via WhatsApp
+        sendBookingBtn.addEventListener('click', function() {
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (!name || !phone) {
+                alert('Please enter your name and phone number.');
+                return;
+            }
+            
+            // Determine which tab is active
+            const activeTab = document.querySelector('.tab-content.active').id;
+            let whatsappMessage = '';
+            
+            if (activeTab === 'quick-book') {
+                // Generate quick booking message
+                const selectedServiceElement = document.querySelector('.service-option.selected');
+                const selectedService = selectedServiceElement ? selectedServiceElement.getAttribute('data-service') : 'Not specified';
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const notes = document.getElementById('notes').value;
+                
+                whatsappMessage = `Hello Dog Tales Kennels! I'd like to inquire about your services.\n\n` +
+                                 `*Name:* ${name}\n` +
+                                 `*Phone:* ${phone}\n` +
+                                 `*Service of Interest:* ${selectedService}\n` +
+                                 (date ? `*Preferred Date:* ${date}\n` : '') +
+                                 (time ? `*Preferred Time:* ${time}\n` : '') +
+                                 (notes ? `*Additional Notes:* ${notes}` : '');
+            } else {
+                // Use custom message
+                const customMessage = document.getElementById('message').value;
+                whatsappMessage = `Hello Dog Tales Kennels! This is ${name} (${phone}).\n\n` + customMessage;
+            }
+            
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // Open WhatsApp with pre-filled message
+            window.open(`https://wa.me/${businessWhatsAppNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Close modal
+            bookingModal.classList.remove('active');
+            
+            // Reset form
+            userInfoForm.reset();
+            serviceOptions.forEach(opt => opt.classList.remove('selected'));
+            tabBtns[0].click(); // Reset to first tab
+        });
+        
+        // Close modal when clicking outside
+        bookingModal.addEventListener('click', function(e) {
+            if (e.target === bookingModal) {
+                bookingModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

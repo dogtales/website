@@ -261,17 +261,6 @@ body {
     position: relative;
     display: flex;
     transition: transform 0.5s ease; /* Smooth transition for panning */
-
-
-
-}
-@keyframes pan-film-strip {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
 }
 
 .media-item {
@@ -279,7 +268,6 @@ body {
     width: 250px; /* Set a fixed width for each image */
     height: 180px;
     position: relative;
-    animation: pan-film-strip 12s linear infinite; /* Apply the animation */
 }
 
 .media-item img {
@@ -444,65 +432,6 @@ img {
 .youtube-button:hover .youtube-tooltip {
     display: block;
 }
-
-/* --- Start of new code for horizontal alignment on all screens --- */
-.whatsapp-button, .youtube-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25D366; /* WhatsApp color */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.whatsapp-button:hover {
-    background-color: #128C7E;
-    transform: translateY(-10px);
-}
-.youtube-button {
-    right: 90px; /* Adjusted position for YouTube button */
-    background-color: #FF0000; /* YouTube color */
-}
-.youtube-button:hover {
-    background-color: #C8102E;
-    transform: translateY(-10px);
-}
-.whatsapp-tooltip, .youtube-tooltip {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    display: none;
-    z-index: 1001;
-}
-.whatsapp-tooltip {
-    background-color: #25D366;
-}
-.youtube-tooltip {
-    background-color: #FF0000;
-}
-.whatsapp-button:hover .whatsapp-tooltip,
-.youtube-button:hover .youtube-tooltip {
-    display: block;
-}
-/* Image styling for buttons */
-.button-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-/* --- End of new code --- */
 
 .film-strip-image-container {
     width: 100%;
