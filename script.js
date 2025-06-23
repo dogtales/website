@@ -162,4 +162,11 @@ document.addEventListener('DOMContentLoaded', function() {
             bookingModal.classList.remove('active');
         }
     });
+
+    // Keyboard accessibility: close modal on Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            bookingModal.classList.remove('active');
+        }
+    });
 });
