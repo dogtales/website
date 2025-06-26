@@ -1,5 +1,5 @@
-import { SUPABASE_URL, SUPABASE_KEY } from './supabase-config.js';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// This file now primarily handles general UI/UX, carousels, and navigation.
+// Supabase authentication and booking logic are moved to auth.js, booking.js, and main.js.
 
 // Existing carousel and navigation logic (no changes needed here)
 const images = document.querySelectorAll('.image-container img');
@@ -57,12 +57,8 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// --- Supabase Integration: New Code Starts Here ---
-
-// Initialize Supabase (REPLACE WITH YOUR ACTUAL PROJECT URL AND ANON KEY)
-// const supabaseUrl = 'https://your-project-ref.supabase.co'; // e.g., 'https://abcdefg1234.supabase.co'
-// const supabaseKey = 'your-anon-key'; // e.g., 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-// const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// --- Supabase Integration: Removed duplicate Supabase client initialization ---
+// The Supabase client is now initialized and exported from auth.js
 
 document.addEventListener('DOMContentLoaded', function() {
     // Existing DOM elements for booking modal
@@ -74,127 +70,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const serviceOptions = document.querySelectorAll('.service-option');
     const sendBookingBtn = document.getElementById('sendBookingBtn');
     const userInfoForm = document.getElementById('userInfoForm');
-    const businessWhatsAppNumber = '254115411167';
+    // const businessWhatsAppNumber = '254115411167'; // This is now handled in main.js
 
     // New DOM elements for Supabase Auth within the modal
-    const authTabBtn = document.getElementById('auth-tab-btn');
-    const authEmailInput = document.getElementById('auth-email');
-    const authPasswordInput = document.getElementById('auth-password');
-    const signUpModalBtn = document.getElementById('sign-up-modal');
-    const signInModalBtn = document.getElementById('sign-in-modal');
-    const signInGoogleModalBtn = document.getElementById('sign-in-google-modal');
-    const signInGithubModalBtn = document.getElementById('sign-in-github-modal');
-    const signOutModalBtn = document.getElementById('sign-out-modal');
-    const userStatusSpan = document.getElementById('user-status');
-    const historyTabBtn = document.getElementById('history-tab-btn');
+    // These elements are now primarily managed by main.js for event listeners
+    // const authTabBtn = document.getElementById('auth-tab-btn');
+    // const authEmailInput = document.getElementById('auth-email');
+    // const authPasswordInput = document.getElementById('auth-password');
+    // const signUpModalBtn = document.getElementById('sign-up-modal');
+    // const signInModalBtn = document.getElementById('sign-in-modal');
+    // const signInGoogleModalBtn = document.getElementById('sign-in-google-modal');
+    // const signInGithubModalBtn = document.getElementById('sign-in-github-modal');
+    // const signOutModalBtn = document.getElementById('sign-out-modal');
+    // const userStatusSpan = document.getElementById('user-status');
+    // const historyTabBtn = document.getElementById('history-tab-btn');
 
-    let currentUser = null; // To store the current logged-in user
+    // Removed currentUser variable as it's managed in auth.js
 
     // --- Supabase Authentication Functions ---
-    const updateAuthUI = (user) => {
-        currentUser = user;
-        if (user) {
-            userStatusSpan.textContent = `Logged in as: ${user.email}`;
-            signOutModalBtn.style.display = 'block';
-            signUpModalBtn.style.display = 'none';
-            signInModalBtn.style.display = 'none';
-            signInGoogleModalBtn.style.display = 'none';
-            signInGithubModalBtn.style.display = 'none';
-            // Optionally disable name/phone fields if user is logged in and we want to use their profile data
-            // document.getElementById('name').value = user.user_metadata?.full_name || '';
-            // document.getElementById('phone').value = user.phone || '';
-        } else {
-            userStatusSpan.textContent = 'Not logged in';
-            signOutModalBtn.style.display = 'none';
-            signUpModalBtn.style.display = 'block';
-            signInModalBtn.style.display = 'block';
-            signInGoogleModalBtn.style.display = 'block';
-            signInGithubModalBtn.style.display = 'block';
-            // Clear name/phone fields if they were pre-filled
-            // document.getElementById('name').value = '';
-            // document.getElementById('phone').value = '';
-        }
-    };
-
-    const handleSignUp = async () => {
-        const email = authEmailInput.value;
-        const password = authPasswordInput.value;
-        const { error } = await supabase.auth.signUp({ email, password });
-        if (error) {
-            alert(`Error signing up: ${error.message}`);
-        } else {
-            alert('Sign up successful! Check your email for a confirmation link.');
-            authEmailInput.value = '';
-            authPasswordInput.value = '';
-            bookingModal.classList.remove('active'); // Close modal
-        }
-    };
-
-    const handleSignIn = async () => {
-        const email = authEmailInput.value;
-        const password = authPasswordInput.value;
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-            alert(`Error signing in: ${error.message}`);
-        } else {
-            alert('Signed in successfully!');
-            authEmailInput.value = '';
-            authPasswordInput.value = '';
-            bookingModal.classList.remove('active'); // Close modal
-            updateAuthUI(data.user);
-        }
-    };
-
-    const handleOAuthSignIn = async (provider) => {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: provider,
-            options: { redirectTo: window.location.href }
-        });
-        if (error) {
-            alert(`Error with ${provider} sign in: ${error.message}`);
-        }
-        // Redirect will handle the rest
-    };
-
-    const handleSignOut = async () => {
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            alert(`Error signing out: ${error.message}`);
-        } else {
-            alert('Signed out successfully!');
-            updateAuthUI(null);
-            bookingModal.classList.remove('active'); // Close modal
-        }
-    };
+    // These functions are now imported and handled by main.js
+    // Removed updateAuthUI, handleSignUp, handleSignIn, handleOAuthSignIn, handleSignOut
 
     // --- Supabase Data (Item) Creation ---
-    const createBookingItem = async (bookingDetails) => {
-        if (!currentUser) {
-            alert('Please sign in to save your booking details.');
-            return null;
-        }
-
-        const { name, phone, service, date, time, notes, message } = bookingDetails;
-        const title = service || "General Inquiry";
-        const description = `Name: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${date}\nTime: ${time}\nNotes: ${notes}\nCustom Message: ${message}`;
-
-        const { data, error } = await supabase
-            .from('items') // Using 'items' table for bookings
-            .insert([{
-                title: title,
-                description: description,
-                user_id: currentUser.id // Link booking to the logged-in user
-            }])
-            .select();
-
-        if (error) {
-            alert(`Error saving booking: ${error.message}`);
-            return null;
-        } else {
-            console.log('Booking saved to Supabase:', data);
-            return data[0];
-        }
-    };
+    // This function is now imported and handled by main.js
+    // Removed createBookingItem
 
     // --- Existing Booking Modal Logic (Adapted for Supabase) ---
 
@@ -208,8 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     option.classList.add('selected');
                 }
             });
-            tabBtns[0].click(); // Ensure quick-book tab is active
+            // Ensure quick-book tab is active
+            const quickBookTabBtn = document.querySelector('.tab-btn[data-tab="quick-book"]');
+            if (quickBookTabBtn) quickBookTabBtn.click();
             bookingModal.classList.add('active');
+            // showModalError(''); // This is now handled by main.js
         });
     });
 
@@ -217,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
     closeModal.addEventListener('click', function(e) {
         e.preventDefault();
         bookingModal.classList.remove('active');
+        // showModalError(''); // This is now handled by main.js
     });
 
     // Tab switching
@@ -227,6 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const tabId = this.getAttribute('data-tab');
             tabContents.forEach(content => content.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
+            // showModalError(''); // This is now handled by main.js
+            // loadBookingHistory(); // This is now handled by main.js
         });
     });
 
@@ -238,80 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    let lastBookingTime = 0;
-    // Send booking via WhatsApp AND save to Supabase
-    sendBookingBtn.addEventListener('click', async function() {
-        const now = Date.now();
-        if (now - lastBookingTime < 60000) {
-            showModalError('Please wait a minute before making another booking.');
-            return;
-        }
-        lastBookingTime = now;
-
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-
-        if (!name || !phone) {
-            alert('Please enter your name and phone number.');
-            return;
-        }
-
-        const activeTab = document.querySelector('.tab-content.active').id;
-        let whatsappMessage = '';
-        let bookingDetails = { name, phone };
-
-        if (activeTab === 'quick-book') {
-            const selectedServiceElement = document.querySelector('.service-option.selected');
-            const selectedService = selectedServiceElement ? selectedServiceElement.getAttribute('data-service') : 'Not specified';
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            const notes = document.getElementById('notes').value;
-
-            whatsappMessage = `Hello Dog Tales Kennels! I'd like to inquire about your services.\n\n` +
-                `*Name:* ${name}\n` +
-                `*Phone:* ${phone}\n` +
-                `*Service of Interest:* ${selectedService}\n` +
-                (date ? `*Preferred Date:* ${date}\n` : '') +
-                (time ? `*Preferred Time:* ${time}\n` : '') +
-                (notes ? `*Additional Notes:* ${notes}` : '');
-            
-            bookingDetails = { ...bookingDetails, service: selectedService, date, time, notes };
-
-        } else if (activeTab === 'custom-message') {
-            const customMessage = document.getElementById('message').value;
-            whatsappMessage = `Hello Dog Tales Kennels! This is ${name} (${phone}).\n\n` + customMessage;
-            bookingDetails = { ...bookingDetails, message: customMessage, service: "Custom Message" };
-        } else {
-            alert('Please select a booking type or provide a custom message.');
-            return;
-        }
-
-        // Save to Supabase if user is logged in
-        if (currentUser) {
-            const savedBooking = await createBookingItem(bookingDetails);
-            if (savedBooking) {
-                alert('Booking saved to your account and WhatsApp message prepared!');
-            } else {
-                alert('Booking could not be saved to your account. Please try again.');
-            }
-        } else {
-            alert('Booking details will only be sent via WhatsApp. Log in to save your bookings!');
-        }
-
-        // Always send via WhatsApp
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-        window.open(`https://wa.me/${businessWhatsAppNumber}?text=${encodedMessage}`, '_blank');
-        
-        bookingModal.classList.remove('active');
-        userInfoForm.reset();
-        serviceOptions.forEach(opt => opt.classList.remove('selected'));
-        tabBtns[0].click(); // Reset to Quick Book tab
-    });
+    // Removed sendBookingBtn event listener as it's now in main.js
 
     // Close modal when clicking outside
     bookingModal.addEventListener('click', function(e) {
         if (e.target === bookingModal) {
             bookingModal.classList.remove('active');
+            // showModalError(''); // This is now handled by main.js
         }
     });
 
@@ -319,79 +157,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             bookingModal.classList.remove('active');
+            // showModalError(''); // This is now handled by main.js
         }
     });
 
     // --- Supabase Auth Event Listeners within Modal ---
-    signUpModalBtn.addEventListener('click', handleSignUp);
-    signInModalBtn.addEventListener('click', handleSignIn);
-    signInGoogleModalBtn.addEventListener('click', () => handleOAuthSignIn('google'));
-    signInGithubModalBtn.addEventListener('click', () => handleOAuthSignIn('github'));
-    signOutModalBtn.addEventListener('click', handleSignOut);
+    // These are now handled by main.js
+    // Removed event listeners for signUpModalBtn, signInModalBtn, signInGoogleModalBtn, signInGithubModalBtn, signOutModalBtn
 
     // Initial check and listen for auth state changes
-    supabase.auth.getUser().then(({ data: { user } }) => {
-        updateAuthUI(user);
-    });
+    // This is now handled by main.js
+    // Removed supabase.auth.getUser() and onAuthStateChange listeners
 
-    supabase.auth.onAuthStateChange((event, session) => {
-        updateAuthUI(session?.user || null);
-    });
-
-    async function loadBookingHistory() {
-        if (!currentUser) return;
-        const { data, error } = await supabase
-            .from('items')
-            .select('*')
-            .eq('user_id', currentUser.id)
-            .order('created_at', { ascending: false });
-        const list = document.getElementById('bookingHistoryList');
-        list.innerHTML = '';
-        if (error) {
-            showModalError('Could not load booking history.');
-            return;
-        }
-        if (data.length === 0) {
-            list.innerHTML = '<li>No bookings found.</li>';
-            return;
-        }
-        data.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.title} (${item.created_at.split('T')[0]})`;
-            list.appendChild(li);
-        });
-    }
-    // Call this when user logs in or when history tab is clicked
-    historyTabBtn.addEventListener('click', loadBookingHistory);
+    // Removed loadBookingHistory function as it's now in booking.js and called from main.js
+    // Removed prefillProfile function as it's now in main.js
 });
 
-const nameInput = document.getElementById('name');
-const phoneInput = document.getElementById('phone');
-function prefillProfile(user) {
-    if (!user) return;
-    nameInput.value = user.user_metadata?.full_name || '';
-    phoneInput.value = user.phone || '';
-}
-// Call this in updateAuthUI(user)
-updateAuthUI = (user) => {
-    currentUser = user;
-    if (user) {
-        userStatusSpan.textContent = `Logged in as: ${user.email}`;
-        signOutModalBtn.style.display = 'block';
-        signUpModalBtn.style.display = 'none';
-        signInModalBtn.style.display = 'none';
-        signInGoogleModalBtn.style.display = 'none';
-        signInGithubModalBtn.style.display = 'none';
-        prefillProfile(user);
-    } else {
-        userStatusSpan.textContent = 'Not logged in';
-        signOutModalBtn.style.display = 'none';
-        signUpModalBtn.style.display = 'block';
-        signInModalBtn.style.display = 'block';
-        signInGoogleModalBtn.style.display = 'block';
-        signInGithubModalBtn.style.display = 'block';
-    }
-};
+// Removed the duplicate updateAuthUI function here.
+// The prefillProfile function is now defined and used in main.js.
 
 const img = document.createElement('img');
 img.src = '...';

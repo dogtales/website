@@ -1,6 +1,17 @@
+//Purpose:
+    // Sanitizes input.
+    // Creates bookings in Supabase.
+    // Loads booking history.
+    // Generates Google Calendar links.
+// Status:
+    // createBookingItem checks for user, inserts booking, and shows success/error.
+    // loadBookingHistory fetches user’s bookings and calls a render callback.
+    // No issues detected.
+
 import { supabase, getCurrentUser } from './auth.js';
 
 export function sanitizeInput(str) {
+    if (typeof str !== 'string') return str; // Ensure it's a string
     return str.replace(/[<>]/g, '');
 }
 
@@ -16,30 +27,51 @@ export async function createBookingItem(bookingDetails, showModalError, showModa
     const user = getCurrentUser();
     if (!user) {
         showModalError('You must be logged in to book.');
-        return;
+        return null; // Return null to indicate failure
     }
+    // Sanitize all relevant fields before insertion
     const { name, phone, service, date, time, notes, message } = bookingDetails;
-    const title = service || "General Inquiry";
-    const description = `Name: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${date}\nTime: ${time}\nNotes: ${notes}\nCustom Message: ${message}`;
-    const { error } = await supabase
+    const sanitizedName = sanitizeInput(name);
+    const sanitizedPhone = sanitizeInput(phone);
+    const sanitizedService = sanitizeInput(service);
+    const sanitizedDate = sanitizeInput(date);
+    const sanitizedTime = sanitizeInput(time);
+    const sanitizedNotes = sanitizeInput(notes);
+    const sanitizedMessage = sanitizeInput(message);
+
+    const title = sanitizedService || "General Inquiry";
+    const description = `Name: ${sanitizedName}\nPhone: ${sanitizedPhone}\nService: ${sanitizedService}\nDate: ${sanitizedDate}\nTime: ${sanitizedTime}\nNotes: ${sanitizedNotes}\nCustom Message: ${sanitizedMessage}`;
+    
+    const { data, error } = await supabase
         .from('items')
         .insert([{
             title,
             description,
             user_id: user.id
-        }]);
-    if (error) showModalError(error.message);
+        }])
+        .select(); // Add .select() to return the inserted data
+
+    if (error) {
+        showModalError(error.message);
+        return null; // Return null to indicate failure
+    }
     else {
         showModalSuccess('Booking saved!');
         const addToCalendarBtn = document.getElementById('addToCalendarBtn');
-        addToCalendarBtn.href = generateGoogleCalendarLink(bookingDetails);
-        addToCalendarBtn.style.display = 'block';
+        if (addToCalendarBtn) { // Check if element exists
+            addToCalendarBtn.href = generateGoogleCalendarLink(bookingDetails);
+            addToCalendarBtn.style.display = 'block';
+        }
+        return data[0]; // Return the inserted item
     }
 }
 
 export async function loadBookingHistory(showModalError, renderHistory) {
     const user = getCurrentUser();
-    if (!user) return;
+    if (!user) {
+        // Optionally show a message that user needs to be logged in to see history
+        return;
+    }
     const { data, error } = await supabase
         .from('items')
         .select('*')

@@ -68,106 +68,75 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// BOOKING MODAL LOGIC (from WhatsappForm V2.html)
-document.addEventListener('DOMContentLoaded', function() {
-    const serviceBookBtns = document.querySelectorAll('.service-book-btn');
-    const bookingModal = document.getElementById('bookingModal');
-    const closeModal = document.getElementById('closeModal');
+// Modal logic for booking form
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('bookingModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const serviceButtons = document.querySelectorAll('.service-book-btn');
+    const serviceOptions = document.querySelectorAll('.service-option');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
-    const serviceOptions = document.querySelectorAll('.service-option');
-    const sendBookingBtn = document.getElementById('sendBookingBtn');
     const userInfoForm = document.getElementById('userInfoForm');
-    const businessWhatsAppNumber = '254115411167';
 
-    // Open modal when a service button is clicked
-    serviceBookBtns.forEach(button => {
-        button.addEventListener('click', function() {
-            const serviceName = this.getAttribute('data-service');
-            // Select the corresponding service option in the modal
-            serviceOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-service') === serviceName) {
-                    option.classList.add('selected');
+    // Open modal and prefill service if button clicked
+    serviceButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            modal.style.display = 'block';
+            // Prefill service type in quick-book tab
+            const service = btn.getAttribute('data-service');
+            serviceOptions.forEach(opt => {
+                if (opt.getAttribute('data-service') === service) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
                 }
             });
-            // Ensure quick-book tab is active
-            tabBtns[0].click();
-            bookingModal.classList.add('active');
+            // Switch to quick-book tab
+            tabBtns.forEach(tb => tb.classList.remove('active-tab'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
+            tabBtns[0].classList.add('active-tab');
+            tabContents[0].classList.add('active');
         });
     });
 
     // Close modal
-    closeModal.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('bookingModal').classList.remove('active');
+    closeModalBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
+        userInfoForm.reset();
+        serviceOptions.forEach(opt => opt.classList.remove('selected'));
+    });
+
+    // Close modal when clicking outside content
+    window.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            userInfoForm.reset();
+            serviceOptions.forEach(opt => opt.classList.remove('selected'));
+        }
+    });
+
+    // Service option selection
+    serviceOptions.forEach(opt => {
+        opt.addEventListener('click', function () {
+            serviceOptions.forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+        });
     });
 
     // Tab switching
     tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             tabBtns.forEach(tb => tb.classList.remove('active-tab'));
-            this.classList.add('active-tab');
-            const tabId = this.getAttribute('data-tab');
-            tabContents.forEach(content => content.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+            tabContents.forEach(tc => tc.classList.remove('active'));
+            btn.classList.add('active-tab');
+            document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
         });
     });
 
-    // Service selection
-    serviceOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            serviceOptions.forEach(opt => opt.classList.remove('selected'));
-            this.classList.add('selected');
-        });
+    // Prevent form submission (for now)
+    userInfoForm.addEventListener('submit', function (e) {
+        e.preventDefault();
     });
 
-    // Send booking via WhatsApp
-    sendBookingBtn.addEventListener('click', function() {
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        if (!name || !phone) {
-            alert('Please enter your name and phone number.');
-            return;
-        }
-        const activeTab = document.querySelector('.tab-content.active').id;
-        let whatsappMessage = '';
-        if (activeTab === 'quick-book') {
-            const selectedServiceElement = document.querySelector('.service-option.selected');
-            const selectedService = selectedServiceElement ? selectedServiceElement.getAttribute('data-service') : 'Not specified';
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            const notes = document.getElementById('notes').value;
-            whatsappMessage = `Hello Dog Tales Kennels! I'd like to inquire about your services.\n\n` +
-                `*Name:* ${name}\n` +
-                `*Phone:* ${phone}\n` +
-                `*Service of Interest:* ${selectedService}\n` +
-                (date ? `*Preferred Date:* ${date}\n` : '') +
-                (time ? `*Preferred Time:* ${time}\n` : '') +
-                (notes ? `*Additional Notes:* ${notes}` : '');
-        } else {
-            const customMessage = document.getElementById('message').value;
-            whatsappMessage = `Hello Dog Tales Kennels! This is ${name} (${phone}).\n\n` + customMessage;
-        }
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-        window.open(`https://wa.me/${businessWhatsAppNumber}?text=${encodedMessage}`, '_blank');
-        bookingModal.classList.remove('active');
-        userInfoForm.reset();
-        serviceOptions.forEach(opt => opt.classList.remove('selected'));
-        tabBtns[0].click();
-    });
-
-    // Close modal when clicking outside
-    bookingModal.addEventListener('click', function(e) {
-        if (e.target === bookingModal) {
-            bookingModal.classList.remove('active');
-        }
-    });
-
-    // Keyboard accessibility: close modal on Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            bookingModal.classList.remove('active');
-        }
-    });
+    // (Optional) Add logic for sendBookingBtn here
 });

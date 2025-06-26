@@ -1,3 +1,7 @@
+//Purpose: Initializes carousels for images, hero images, and film strips.
+//Status:
+    //initCarousels() is exported and called from main.js.
+//No issues detected.
 export function initCarousels() {
     // Main image carousel
     const images = document.querySelectorAll('.image-container img');
