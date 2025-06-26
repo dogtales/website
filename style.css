@@ -569,6 +569,9 @@ img {
     width: 100%;
     max-width: 28rem;
     overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 .modal.active .modal-content {
     transform: translateY(0);
@@ -599,6 +602,9 @@ img {
 }
 .modal-body {
     padding: 1.5rem;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    max-height: 60vh;
 }
 .modal-footer {
     background: var(--primary-color);
@@ -717,9 +723,11 @@ img {
   .modal-content {
     max-width: 98vw;
     padding: 0.5rem;
+    max-height: 98vh;
   }
   .modal-body {
     padding: 1rem 0.5rem;
+    max-height: 60vh;
   }
   .modal-header,
   .modal-footer {
