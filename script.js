@@ -98,8 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Close modal
-    closeModal.addEventListener('click', function() {
-        bookingModal.classList.remove('active');
+    closeModal.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('bookingModal').classList.remove('active');
     });
 
     // Tab switching
