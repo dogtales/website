@@ -48,32 +48,46 @@ function prefillProfile(user) {
     const signOutModalBtn = document.getElementById('sign-out-modal');
     const authTabBtn = document.getElementById('auth-tab-btn');
 
+    // NEW: Nav menu auth elements
+    const navAuthSignInUp = document.getElementById('nav-auth-signin-up');
+    const navAuthSignOut = document.getElementById('nav-auth-signout');
+
+
     if (user) {
         if (nameInput) nameInput.value = user.user_metadata?.full_name || '';
         if (phoneInput) phoneInput.value = user.phone || ''; // Assuming phone is part of user metadata or profile
         if (userStatusSpan) userStatusSpan.textContent = `Logged in as: ${user.email}`;
         if (authEmailInput) authEmailInput.value = user.email; // Prefill auth email
         
-        // Hide sign-in/up buttons, show sign-out
+        // Hide sign-in/up buttons, show sign-out in modal
         if (signUpModalBtn) signUpModalBtn.style.display = 'none';
         if (signInModalBtn) signInModalBtn.style.display = 'none';
         if (signInGoogleModalBtn) signInGoogleModalBtn.style.display = 'none';
         if (signInGithubModalBtn) signInGithubModalBtn.style.display = 'none';
         if (signOutModalBtn) signOutModalBtn.style.display = 'block';
         if (authTabBtn) authTabBtn.textContent = 'Profile / Sign Out'; // Change tab text
+
+        // NEW: Hide sign-in/up, show sign-out in nav menu
+        if (navAuthSignInUp) navAuthSignInUp.style.display = 'none';
+        if (navAuthSignOut) navAuthSignOut.style.display = 'block';
+
     } else {
         if (nameInput) nameInput.value = '';
         if (phoneInput) phoneInput.value = '';
         if (userStatusSpan) userStatusSpan.textContent = 'Not logged in';
         if (authEmailInput) authEmailInput.value = '';
 
-        // Show sign-in/up buttons, hide sign-out
+        // Show sign-in/up buttons, hide sign-out in modal
         if (signUpModalBtn) signUpModalBtn.style.display = 'block';
         if (signInModalBtn) signInModalBtn.style.display = 'block';
         if (signInGoogleModalBtn) signInGoogleModalBtn.style.display = 'block';
         if (signInGithubModalBtn) signInGithubModalBtn.style.display = 'block';
         if (signOutModalBtn) signOutModalBtn.style.display = 'none';
         if (authTabBtn) authTabBtn.textContent = 'Sign In / Up'; // Change tab text back
+
+        // NEW: Show sign-in/up, hide sign-out in nav menu
+        if (navAuthSignInUp) navAuthSignInUp.style.display = 'block';
+        if (navAuthSignOut) navAuthSignOut.style.display = 'none';
     }
 }
 
@@ -131,6 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const signInGithubModalBtn = document.getElementById('sign-in-github-modal');
     const signOutModalBtn = document.getElementById('sign-out-modal');
     const historyTabBtn = document.getElementById('history-tab-btn');
+
+    // NEW: Nav menu auth elements
+    const navAuthSignInUpLink = document.querySelector('#nav-auth-signin-up a');
+    const navSignOutBtn = document.getElementById('nav-sign-out-btn');
 
 
     // Open modal when a service button is clicked
@@ -317,6 +335,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signOutModalBtn) {
         signOutModalBtn.addEventListener('click', () => handleSignOut(showModalError));
     }
+
+    // NEW: Event listeners for nav menu auth links
+    if (navAuthSignInUpLink) {
+        navAuthSignInUpLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            bookingModal.classList.add('active');
+            const targetTabId = this.getAttribute('data-tab-target');
+            const targetTabBtn = document.querySelector(`.tab-btn[data-tab="${targetTabId}"]`);
+            if (targetTabBtn) {
+                targetTabBtn.click(); // Simulate click to activate the tab
+            }
+            showModalError(''); // Clear any previous errors
+        });
+    }
+
+    if (navSignOutBtn) {
+        navSignOutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleSignOut(showModalError);
+        });
+    }
+
 
     // Initial check and listen for auth state changes
     listenForAuthChanges(updateAuthUI, prefillProfile);
