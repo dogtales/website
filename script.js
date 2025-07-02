@@ -71,8 +71,8 @@ window.addEventListener('scroll', () => {
 // BOOKING MODAL LOGIC (from WhatsappForm V2.html)
 document.addEventListener('DOMContentLoaded', function() {
     const serviceBookBtns = document.querySelectorAll('.service-book-btn');
-    const bookingModal = document.getElementById('bookingModal');
-    const closeModal = document.getElementById('closeModal');
+    const bookingModal = document.getElementById('bookingModal'); // Make sure this targets your modal
+    const closeModal = document.getElementById('closeModal'); // This line already exists and targets the button
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     const serviceOptions = document.querySelectorAll('.service-option');
@@ -80,9 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInfoForm = document.getElementById('userInfoForm');
     const businessWhatsAppNumber = '254115411167';
 
+    let lastScrollY = 0;
+
     // Open modal when a service button is clicked
     serviceBookBtns.forEach(button => {
         button.addEventListener('click', function() {
+            lastScrollY = window.scrollY; // Save scroll position
             const serviceName = this.getAttribute('data-service');
             // Select the corresponding service option in the modal
             serviceOptions.forEach(option => {
@@ -95,11 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
             tabBtns[0].click();
             bookingModal.classList.add('active');
         });
-    });
-
-    // Close modal
-    closeModal.addEventListener('click', function() {
-        bookingModal.classList.remove('active');
     });
 
     // Tab switching
@@ -156,14 +154,19 @@ document.addEventListener('DOMContentLoaded', function() {
         tabBtns[0].click();
     });
 
-    // Close modal when clicking outside
+    // Close modal with close button (no scroll)
+    closeModal.addEventListener('click', function() {
+        bookingModal.classList.remove('active');
+    });
+
+    // Close modal when clicking outside (no scroll)
     bookingModal.addEventListener('click', function(e) {
         if (e.target === bookingModal) {
             bookingModal.classList.remove('active');
         }
     });
 
-    // Keyboard accessibility: close modal on Escape
+    // Keyboard accessibility: close modal on Escape (no scroll)
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             bookingModal.classList.remove('active');

@@ -1,0 +1,6 @@
+To create a Supabase backend and link it to a static website, we'll create a single HTML file that demonstrates the integration. This will include:
+
+    A modern UI with Tailwind CSS
+    Complete Supabase client setup
+    Example CRUD operations
+    Authentication flow
