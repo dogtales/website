@@ -1,6 +1,7 @@
-CREATE TABLE users (
+CREATE TABLE adminUsers (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(20) GENERATED ALWAYS AS (
         CASE
@@ -17,13 +18,20 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Example: Only top_tier can edit/delete, middle_tier can edit, regular_tier can view, random_tier can only login
--- You can update permissions after user creation by a top_tier user (manager admin)
+-- Set permissions after user creation (example: only top_tier can edit/delete)
+-- UPDATE adminUsers SET can_view = TRUE, can_edit = TRUE, can_delete = TRUE WHERE id = 1 AND role = 'top_tier';
 
--- BOOKINGS TABLE
+-- EMAILS TABLE LINKED TO adminUsers
+CREATE TABLE userEmails (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES adminUsers(id) ON DELETE CASCADE,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- BOOKINGS TABLE LINKED TO adminUsers
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
+    user_id INTEGER REFERENCES adminUsers(id) ON DELETE SET NULL,
     name VARCHAR(255) NOT NULL,
     service VARCHAR(255) NOT NULL,
     phone VARCHAR(50) NOT NULL,
@@ -31,6 +39,3 @@ CREATE TABLE bookings (
     message TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- Example: Set permissions for a user (to be run by a top_tier user)
--- UPDATE users SET can_view = TRUE, can_edit = TRUE, can_delete = TRUE WHERE id = 1 AND role = 'top_tier';
