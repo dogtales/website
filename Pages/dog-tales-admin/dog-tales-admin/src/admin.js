@@ -3,9 +3,9 @@
 const { createClient } = supabase;
 
 // Initialize Supabase client
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://mekkzrxycoylxodgkfsn.supabase.co'; // Your Supabase URL
+const supabaseKey = 'YOUR_ANON_KEY'; // Your anon public key
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Handle admin sign-in form submission
 document.getElementById('admin-login-form').addEventListener('submit', async (event) => {
