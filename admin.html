@@ -4,61 +4,56 @@
   <meta charset="UTF-8">
   <title>Admin Dashboard - Bookings</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <script defer src="admin.js"></script>
 </head>
 <body>
   <header class="header">
-        <nav class="nav-container" aria-label="Main navigation">
-            <a href="#" class="logo">
-                <img src="Media/Logo.png" alt="Dog Tales Logo" class="logo-img fitting-logo">
-                <span class="logo-text">Dog Tales Kennels Admin</span>
-            </a>
-        </nav>
-    </header>
-    <main>
-        <section class="section">
-            <h2 class="section-title">Admin Sign In</h2>
-            <form id="adminSignInForm">
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-input" placeholder="yourbusiness@gmail.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="booking-btn">Sign In</button>
-            </form>
-            <div id="error-message" class="error-message"></div>
-        </section>
-        <section id="bookingData" class="section" style="display:none;">
-            <h2 class="section-title">User Bookings</h2>
-            <div id="bookingList"></div>
-        </section>
-        <section id="adminBookings" class="section" style="display:none;">
-            <h2 class="section-title">Admin Bookings Dashboard</h2>
-            <table id="bookings-table" border="1">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Service</th>
-                        <th>Phone</th>
-                        <th>Date</th>
-                        <th>Message</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Bookings will be populated here -->
-                </tbody>
-            </table>
-        </section>
-    </main>
-    <footer>
-        <p>© 2025 Dog Tales Kennel. All rights reserved.</p>
-    </footer>
+    <nav class="nav-container" aria-label="Main navigation">
+      <a href="#" class="logo">
+        <img src="Media/Logo.png" alt="Dog Tales Logo" class="logo-img fitting-logo">
+        <span class="logo-text">Dog Tales Kennels Admin</span>
+      </a>
+    </nav>
+  </header>
+  <main>
+    <section class="section">
+      <h2 class="section-title">Admin Sign In</h2>
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email (optional)</label>
+          <input type="email" id="email" class="form-input" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password (required)</label>
+          <input type="password" id="password" class="form-input" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="booking-btn">Login</button>
+      </form>
+      <div id="error-message" class="error-message"></div>
+    </section>
+    <section id="adminBookings" class="section" style="display:none;">
+      <h2 class="section-title">Admin Bookings Dashboard</h2>
+      <table id="bookings-table" border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Bookings will be populated here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Dog Tales Kennel. All rights reserved.</p>
+  </footer>
 </body>
 </html>
