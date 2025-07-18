@@ -1,0 +1,26 @@
+{
+  "name": "dog-tales-admin",
+  "version": "1.0.0",
+  "description": "Admin dashboard for Dog Tales Kennels, including user authentication and bookings management.",
+  "main": "src/admin.js",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build step not defined'",
+    "test": "echo 'Test step not defined'"
+  },
+  "keywords": [
+    "dog",
+    "kennels",
+    "admin",
+    "dashboard",
+    "supabase"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
