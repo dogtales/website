@@ -13,13 +13,13 @@
   <header class="header">
     <nav class="nav-container" aria-label="Main navigation">
       <a href="#" class="logo">
-        <img src="Media/Logo.png" alt="Dog Tales Logo" class="logo-img fitting-logo">
+        <img src="../../../../Media/Logo.png" alt="Dog Tales Logo" class="logo-img fitting-logo">
         <span class="logo-text">Dog Tales Kennels Admin</span>
       </a>
     </nav>
   </header>
   <main>
-    <!-- HERO SECTION WITH MOVING IMAGES -->
+    <!-- HERO SECTION -->
     <section class="hero" style="margin-top: 20px;">
       <div class="image-container">
         <img src="../../../../Media/Hero images/1. WhatsApp Image 2025-04-15 at 6.33.05 PM.jpeg" class="active" alt="Dog Hero Image 1">
@@ -32,9 +32,9 @@
         <h1>Welcome Admin</h1>
         <h2>Dog Tales Kennels Management Portal</h2>
       </div>
-      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-        <button id="showSignup" class="booking-btn" style="min-width:120px;">Sign Up</button>
-        <button id="showLogin" class="booking-btn" style="min-width:120px;">Login</button>
+      <div class="hero-actions">
+        <button id="showSignup" class="booking-btn">Sign Up</button>
+        <button id="showLogin" class="booking-btn">Login</button>
       </div>
     </section>
 
@@ -48,7 +48,10 @@
         </div>
         <div class="form-group">
           <label for="signup-password" class="form-label">Password</label>
-          <input type="password" id="signup-password" class="form-input" placeholder="Set password" required>
+          <div class="password-group">
+            <input type="password" id="signup-password" class="form-input" placeholder="Set password" required>
+            <button type="button" id="toggle-signup-password" class="toggle-password-btn">Show</button>
+          </div>
           <small>Password length determines role: 10=Top, 8=Middle, 6=Regular, 4=Random</small>
         </div>
         <button type="submit" class="booking-btn">Sign Up</button>
@@ -66,7 +69,10 @@
         </div>
         <div class="form-group">
           <label for="login-password" class="form-label">Password</label>
-          <input type="password" id="login-password" class="form-input" placeholder="Enter password" required>
+          <div class="password-group">
+            <input type="password" id="login-password" class="form-input" placeholder="Enter password" required>
+            <button type="button" id="toggle-login-password" class="toggle-password-btn">Show</button>
+          </div>
         </div>
         <button type="submit" class="booking-btn">Login</button>
       </form>
@@ -99,8 +105,27 @@
     <p>© 2025 Dog Tales Kennel. All rights reserved.</p>
   </footer>
   <script>
-    // Hero image carousel (reuse from main site)
-    document.addEventListener('DOMContentLoaded', function() {
+    // UI Utility Functions
+    function toggleSection(showId, hideId) {
+      document.getElementById(showId).style.display = 'block';
+      document.getElementById(hideId).style.display = 'none';
+    }
+
+    function setupPasswordToggle(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      btn.onclick = function() {
+        if (input.type === "password") {
+          input.type = "text";
+          btn.textContent = "Hide";
+        } else {
+          input.type = "password";
+          btn.textContent = "Show";
+        }
+      };
+    }
+
+    function setupHeroCarousel() {
       const images = document.querySelectorAll('.image-container img');
       let currentIndex = 0;
       setInterval(() => {
@@ -108,18 +133,15 @@
         currentIndex = (currentIndex + 1) % images.length;
         images[currentIndex].classList.add('active');
       }, 4000);
+    }
 
-      // Show/hide forms
-      const signupSection = document.getElementById('signupSection');
-      const loginSection = document.getElementById('loginSection');
-      document.getElementById('showSignup').onclick = () => {
-        signupSection.style.display = 'block';
-        loginSection.style.display = 'none';
-      };
-      document.getElementById('showLogin').onclick = () => {
-        loginSection.style.display = 'block';
-        signupSection.style.display = 'none';
-      };
+    document.addEventListener('DOMContentLoaded', function() {
+      setupHeroCarousel();
+      setupPasswordToggle('signup-password', 'toggle-signup-password');
+      setupPasswordToggle('login-password', 'toggle-login-password');
+
+      document.getElementById('showSignup').onclick = () => toggleSection('signupSection', 'loginSection');
+      document.getElementById('showLogin').onclick = () => toggleSection('loginSection', 'signupSection');
     });
   </script>
 </body>

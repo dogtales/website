@@ -1,0 +1,10 @@
+# .gitignore
+Pages/dog-tales-admin
+# Ignore the admin directory in the dog-tales project
+Pages/dog-tales-admin/*
+# Ignore all files in the dog-tales-admin directory
+!Pages/dog-tales-admin/.gitignore
+# But do not ignore the .gitignore file itself
+# This allows the .gitignore file to be tracked while ignoring all other files in the directory
+# Ignore all files in the dog-tales-admin directory except the .gitignore file
+# This is useful for keeping the directory clean while still tracking the ignore rules
