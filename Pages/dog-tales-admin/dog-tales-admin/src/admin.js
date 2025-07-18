@@ -1,8 +1,10 @@
 // File: /dog-tales-admin/dog-tales-admin/src/admin.js
 
+require('dotenv').config();
+
 // Import Supabase key from environment variable
 const supabaseUrl = 'https://mekkzrxycoylxodgkfsn.supabase.co'; // Your Supabase URL
-const supabaseKey = process.env.SUPABASE_KEY; // Use environment variable for the anon key
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY; // Use environment variable for the anon key
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Handle admin sign-in form submission
