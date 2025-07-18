@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard - Bookings</title>
+  <title>Dog Tales Admin Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -18,23 +18,64 @@
     </nav>
   </header>
   <main>
-    <section class="section">
-      <h2 class="section-title">Admin Sign In</h2>
-      <form id="admin-login-form">
+    <!-- HERO SECTION WITH MOVING IMAGES -->
+    <section class="hero" style="margin-top: 20px;">
+      <div class="image-container">
+        <img src="../../../../Media/Hero images/1. WhatsApp Image 2025-04-15 at 6.33.05 PM.jpeg" class="active" alt="Dog Hero Image 1">
+        <img src="../../../../Media/Hero images/2. WhatsApp Image 2025-04-15 at 6.33.05 PM(1).jpeg" alt="Dog Hero Image 2">
+        <img src="../../../../Media/Hero images/3. WhatsApp Image 2025-04-15 at 6.33.03 PM.jpeg" alt="Dog Hero Image 3">
+        <img src="../../../../Media/Hero images/4. WhatsApp Image 2025-04-15 at 6.33.04 PM(1).jpeg" alt="Dog Hero Image 4">
+        <img src="../../../../Media/Hero images/5. WhatsApp Image 2025-04-15 at 6.33.04 PM(2).jpeg" alt="Dog Hero Image 5">
+      </div>
+      <div class="hero-content">
+        <h1>Welcome Admin</h1>
+        <h2>Dog Tales Kennels Management Portal</h2>
+      </div>
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <button id="showSignup" class="booking-btn" style="min-width:120px;">Sign Up</button>
+        <button id="showLogin" class="booking-btn" style="min-width:120px;">Login</button>
+      </div>
+    </section>
+
+    <!-- SIGNUP FORM -->
+    <section id="signupSection" class="section" style="display:none;">
+      <h2 class="section-title">Admin Sign Up</h2>
+      <form id="admin-signup-form">
         <div class="form-group">
-          <label for="email" class="form-label">Email (optional)</label>
-          <input type="email" id="email" class="form-input" placeholder="Enter your email">
+          <label for="signup-email" class="form-label">UserName/Email</label>
+          <input type="text" id="signup-email" class="form-input" placeholder="Enter your username or email" required>
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">Password (required)</label>
-          <input type="password" id="password" class="form-input" placeholder="Enter password" required>
+          <label for="signup-password" class="form-label">Password</label>
+          <input type="password" id="signup-password" class="form-input" placeholder="Set password" required>
+          <small>Password length determines role: 10=Top, 8=Middle, 6=Regular, 4=Random</small>
+        </div>
+        <button type="submit" class="booking-btn">Sign Up</button>
+      </form>
+      <div id="signup-message" class="error-message"></div>
+    </section>
+
+    <!-- LOGIN FORM -->
+    <section id="loginSection" class="section" style="display:none;">
+      <h2 class="section-title">Admin Login</h2>
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label for="login-email" class="form-label">UserName/Email</label>
+          <input type="text" id="login-email" class="form-input" placeholder="Enter your username or email" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Enter password" required>
         </div>
         <button type="submit" class="booking-btn">Login</button>
       </form>
-      <div id="error-message" class="error-message"></div>
+      <div id="login-message" class="error-message"></div>
     </section>
-    <section id="adminBookings" class="section" style="display:none;">
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="adminDashboard" class="section" style="display:none;">
       <h2 class="section-title">Admin Bookings Dashboard</h2>
+      <div id="roleInfo" style="margin-bottom:1rem;"></div>
       <table id="bookings-table" border="1">
         <thead>
           <tr>
@@ -44,6 +85,7 @@
             <th>Phone</th>
             <th>Date</th>
             <th>Message</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -55,5 +97,29 @@
   <footer>
     <p>© 2025 Dog Tales Kennel. All rights reserved.</p>
   </footer>
+  <script>
+    // Hero image carousel (reuse from main site)
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('.image-container img');
+      let currentIndex = 0;
+      setInterval(() => {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+      }, 4000);
+
+      // Show/hide forms
+      const signupSection = document.getElementById('signupSection');
+      const loginSection = document.getElementById('loginSection');
+      document.getElementById('showSignup').onclick = () => {
+        signupSection.style.display = 'block';
+        loginSection.style.display = 'none';
+      };
+      document.getElementById('showLogin').onclick = () => {
+        loginSection.style.display = 'block';
+        signupSection.style.display = 'none';
+      };
+    });
+  </script>
 </body>
 </html>
